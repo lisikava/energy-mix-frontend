@@ -19,6 +19,12 @@ export class EnergyService {
     });
   }
 
+  getChargingWindow(hours: number): Observable<OptimalWindowResponse> {
+    return this.http.get<OptimalWindowResponse>(`${this.baseUrl}/charging-window`, {
+      params: { hours: hours.toString(), timezone: this.getUserTimezone() }
+    });
+  }
+
   
 }
 
@@ -26,4 +32,10 @@ export interface AverageMix {
   date: string;
   average: Record<string, number>;
   cleanEnergyPercentage: number;
+}
+
+export interface OptimalWindowResponse {
+  from: string;
+  to: string;
+  percentage: number;
 }

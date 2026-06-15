@@ -1,7 +1,8 @@
 <div class="dashboard-container">
     <h1 style="text-align: center;">Energy mix information</h1>
-    <!-- <mat-card appearance="outlined"> -->
-        <!-- <mat-card-title>Energy mix information</mat-card-title> -->
+    @if (errorMessage()) {
+        <div class="error-banner">{{ errorMessage() }}</div>
+    }
         <main class="charts-grid">
             @for (day of dailyData(); track day.date) {
             <mat-card appearance="outlined">
@@ -18,10 +19,49 @@
             </mat-card>
             }
         </main>
-    <!-- </mat-card> -->
-  @if (errorMessage()) {
-    <div class="error-banner">{{ errorMessage() }}</div>
-  }
 
+    
+    <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Calculate the optimal charging window</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field style="min-width: 250px; margin-top: 20px">
+                <mat-label for="hoursInput">Required Charging Duration (Hours):</mat-label>
+                <input matInput
+                    id="hoursInput" 
+                    type="number" 
+                    min="1" 
+                    max="6" 
+                    [ngModel]="chargingHours()" 
+                    (ngModelChange)="chargingHours.set($event)"
+                />
+            </mat-form-field>
+            <div>
+                <button matButton="filled" (click)="calculateBestWindow()">Calculate</button>
+            </div>
+            
+
+            @if (optimalWindow(); as window) {
+            <div class="result-box">
+                <table class="result-table">
+                <tr>
+                    <td><strong>Start Time:</strong></td>
+                    <td>{{ window.from | date: 'medium' }}</td>
+                </tr>
+                <tr>
+                    <td><strong>End Time:</strong></td>
+                    <td>{{ window.to | date: 'medium' }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Expected Clean Energy:</strong></td>
+                    <td>{{ window.percentage | number:'1.1-1' }}%</td>
+                </tr>
+                </table>
+            </div>
+            }
+        </mat-card-content>
+        
+    </mat-card>
   
 </div>
