@@ -1,0 +1,3 @@
+.dashboard-container { max-width: 1200px; margin: 0 auto; padding: 20px; font-family: sans-serif; }
+.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 40px; }
+.error-banner { background: #ffebee; color: #c62828; padding: 12px; border-radius: 4px; margin-bottom: 20px; }
