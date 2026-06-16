@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EnergyService {
   constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:8080/api/energy';
+  private baseUrl = 'https://energy-mix-backend-97o6.onrender.com/api/energy';
 
   private getUserTimezone(): string {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
